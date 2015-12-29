@@ -1,8 +1,8 @@
 var Database = require('./lib/database');
 var BackupAgent = require('./lib/backupAgent');
-var GlacierTransmitter = require('./lib/transmitters/glacierTransmitter.js');
-var S3Transmitter = require('./lib/transmitters/s3Transmitter.js');
-var DummyTransmitter = require('./lib/transmitters/dummyTransmitter.js');
+var GlacierBackuper = require('./lib/backupers/glacierBackuper.js');
+var S3Backuper = require('./lib/backupers/s3Backuper.js');
+var DummyBackuper = require('./lib/backupers/dummyBackuper.js');
 var FileQueue = require('filequeue');
 
 var argv = require('minimist')(process.argv.slice(2),{
@@ -11,25 +11,33 @@ var argv = require('minimist')(process.argv.slice(2),{
   }
 });
 
+console.log(argv);
+
 var config = require(argv.config);
 
 var database = new Database(config);
 var fileQueue = new FileQueue(100);
-var transmitter;
-
-if (config.glacierVaultName) {
-  transmitter = new GlacierTransmitter(config,fileQueue);
-} else if (config.s3BucketName) {
-  transmitter = new S3Transmitter(config,fileQueue);
-} else {
-  transmitter = new DummyTransmitter();
-}
+var backuper;
 
 database.connect(function(err) {
   if (err) {
     console.error(err);
   } else {
-    var agent = new BackupAgent(config,database,console,transmitter,fileQueue);
-    agent.execute();
+    var agent = new BackupAgent(config,database,console,fileQueue);
+    agent.execute(function() {
+      // if (config.glacierVaultName) {
+      //   backuper = new GlacierBackuper(config,database,console,fileQueue);
+      // } else if (config.s3BucketName) {
+      if (config.s3BucketName) {
+        backuper = new S3Backuper(config,database,console,fileQueue);
+      } else {
+        backuper = new DummyBackuper(config,database,console,fileQueue);
+      }
+
+      backuper.execute(function() {
+        database.disconnect();
+        process.exit(0);
+      })
+    });
   }
 });
