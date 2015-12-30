@@ -14,7 +14,8 @@
     "filequeue": "^0.5.0",
     "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
-    "sqlite3": "^3.1.1"
+    "sqlite3": "^3.1.1",
+    "treehash": "0.0.5"
   },
   "preferGlobal": "true",
   "bin": {
