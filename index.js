@@ -77,7 +77,7 @@ function status() {
       } else if (total > 0) {
         process.stdout.clearLine();
         process.stdout.cursorTo(0);
-        process.stdout.write(Math.round((total - part) / total * 100) + '%');
+        process.stdout.write(Math.round((total - part) / total * 100) + '% (' + (total - part) + '/' + total + ')');
         if (part == 0) {
           clearInterval(interval);
           process.exit(0);
