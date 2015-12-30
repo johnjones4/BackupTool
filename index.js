@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var Database = require('./lib/database');
 var BackupAgent = require('./lib/backupAgent');
 var GlacierBackuper = require('./lib/backupers/glacierBackuper.js');
