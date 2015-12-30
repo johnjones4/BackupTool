@@ -22,7 +22,7 @@ the file should be the following:
     "/Users/homefolder"
   ],
   "ignore": [
-    ".*",
+    ".*"
   ],
   "backupManifestFile": "/Users/homefolder/.backupfiles.sqlite3",
   "glacierVaultName": "",
