@@ -13,6 +13,12 @@ the file is updated.
 
 ## Installation
 
+Install the command line tool globally using *npm's* `-g` option:
+
+```
+# sudo npm install backuptool -g
+```
+
 Create a file named `.backuptool.json` in your home directory. The contents of
 the file should be the following:
 
