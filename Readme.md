@@ -24,7 +24,7 @@ the file should be the following:
   "ignore": [
     ".*",
   ],
-  "backupManifestFile": "/Users/homefolder/backupfiles.sqlite3",
+  "backupManifestFile": "/Users/homefolder/.backupfiles.sqlite3",
   "glacierVaultName": "",
   "s3BucketName": "",
   "aws": {
