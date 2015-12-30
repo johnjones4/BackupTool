@@ -1,7 +1,7 @@
 {
   "name": "backuptool",
   "description": "",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "author": "John Jones <johnjones4@gmail.com>",
   "homepage": "https://github.com/johnjones4/BackupTool",
