@@ -3,9 +3,7 @@
     "/Users/homefolder"
   ],
   "ignore": [
-    ".git",
-    ".DS_Store",
-    ".sass-cache"
+    ".*",
   ],
   "backupManifestFile": "/Users/homefolder/backupfiles.sqlite3",
   "glacierVaultName": "",
