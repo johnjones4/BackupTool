@@ -45,4 +45,17 @@ the file should be the following:
 
 ## Usage
 
-Todo
+### General Usage
+
+```
+backuptool [--config /path/to/file.json] <backup|status>
+```
+
+### Options
+
+* **--config** In general, _backuptool_ looks for the file `.backuptool.json` in the running user's home directory.
+
+### Commands
+
+* **backup** Execute the backup program
+* **status** Print the percent-complete of the current backup.
