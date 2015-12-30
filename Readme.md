@@ -53,7 +53,7 @@ backuptool [--config /path/to/file.json] <backup|status>
 
 ### Options
 
-* **--config** In general, _backuptool_ looks for the file `.backuptool.json` in the running user's home directory.
+* **--config** By default, _backuptool_ looks for the file `.backuptool.json` in the running user's home directory, but this option can override that.
 
 ### Commands
 
