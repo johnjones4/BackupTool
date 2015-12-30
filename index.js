@@ -8,13 +8,26 @@ var path = require('path');
 
 var argv = require('minimist')(process.argv.slice(2),{
   'default': {
-    'config': path.join(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'],'.backuptool.json')
+    'config': path.join(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'],'.backuptool.json'),
+    'logging': 'error'
   }
 });
 
 var config = require(argv.config);
 var database = new Database(config);
-var logger = console;
+var logger = {
+  'error': function() {},
+  'log': function() {},
+  'info': function() {}
+};
+
+if (argv.logging == 'error' || argv.logging == 'info') {
+  logger.error = console.error;
+}
+if (argv.logging == 'info') {
+  logger.log = console.log;
+  logger.info = console.info;
+}
 
 database.connect(function(err) {
   if (err) {
