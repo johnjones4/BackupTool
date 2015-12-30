@@ -14,7 +14,7 @@ the file is updated.
 ## Installation
 
 Create a file named `.backuptool.json` in your home directory. The contents of
-the file should contain the following:
+the file should be the following:
 
 ```
 {
@@ -41,7 +41,7 @@ the file should contain the following:
 * **ignore** An array of glob-style ignore directives.
 * **backupManifestFile** The path where tool should store its backup manifest.
 * **glacierVaultName** or **s3BucketName** These are the destination names for backups. Use either or to indicate use of Glacier or S3 for backup storage.
-* **aws** This is a set of properties that is passed directly to the AWS API. 
+* **aws** This is a set of properties that is passed directly to the AWS API.
 
 ## Usage
 
