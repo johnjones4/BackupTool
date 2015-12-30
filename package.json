@@ -1,5 +1,5 @@
 {
-  "name": "backup-tool",
+  "name": "backuptool",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,5 +15,9 @@
     "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
     "sqlite3": "^3.1.1"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "backuptool": "index.js"
   }
 }
