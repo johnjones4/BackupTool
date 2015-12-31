@@ -6,6 +6,8 @@ var GlacierBackuper = require('./lib/backupers/glacierBackuper.js');
 var S3Backuper = require('./lib/backupers/s3Backuper.js');
 var DummyBackuper = require('./lib/backupers/dummyBackuper.js');
 var FileQueue = require('filequeue');
+var Joi = require('Joi');
+var Schemas = require('./lib/schemas');
 var path = require('path');
 
 var argv = require('minimist')(process.argv.slice(2),{
@@ -16,6 +18,10 @@ var argv = require('minimist')(process.argv.slice(2),{
 });
 
 var config = require(argv.config);
+
+// Validate configuration before attempting to read DB
+Joi.attempt(config, Schemas.config);
+
 var database = new Database(config);
 var logger = configLogger();
 

@@ -2,3 +2,5 @@
 *.sqlite3
 config.json
 node_modules
+.DS_store
+.idea
