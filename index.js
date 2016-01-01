@@ -2,6 +2,7 @@
 
 var Database = require('./lib/database');
 var BackupAgent = require('./lib/backupAgent');
+var Setup = require('./lib/setup');
 var GlacierBackuper = require('./lib/backupers/glacierBackuper.js');
 var S3Backuper = require('./lib/backupers/s3Backuper.js');
 var DummyBackuper = require('./lib/backupers/dummyBackuper.js');
@@ -27,6 +28,8 @@ database.connect(function(err) {
       backup();
     } else if (argv._.length == 1 && argv._[0] == 'status') {
       status();
+    } else if (argv._.length == 1 && argv._[0] == 'setup') {
+      setup();
     } else {
       usage();
     }
@@ -89,6 +92,11 @@ function status() {
   },500);
 }
 
+function setup() {
+  var setup = new Setup();
+  setup.start();
+}
+
 function usage() {
-  console.error('Usage: backuptool [--config /path/to/file.json] <backup|status>');
+  console.error('Usage: backuptool [--config /path/to/file.json] [--logging <error|info>] <backup|status|setup>');
 }
