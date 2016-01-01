@@ -1,7 +1,7 @@
 {
   "name": "backuptool",
   "description": "Backup Tool is a command line utility for backing up filesystem data to Amazon Web Services.",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "main": "index.js",
   "author": "John Jones <johnjones4@gmail.com>",
   "homepage": "https://github.com/johnjones4/BackupTool",
