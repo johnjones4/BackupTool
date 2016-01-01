@@ -19,26 +19,17 @@ Install the command line tool globally using *npm's* `-g` option:
 # sudo npm install backuptool -g
 ```
 
-Create a file named `.backuptool.json` in your home directory. The contents of
-the file should be the following:
+Then, run the interactive setup by running:
 
 ```
-{
-  "backupDirs": [
-    "/Users/homefolder"
-  ],
-  "ignore": [
-    ".*"
-  ],
-  "backupManifestFile": "/Users/homefolder/.backupfiles.sqlite3",
-  "glacierVaultName": "",
-  "s3BucketName": "",
-  "aws": {
-    "accessKeyId": "",
-    "secretAccessKey": "",
-    "region": ""
-  }
-}
+# backuptool setup
+```
+
+Finally, it is recommended to run the first backup with verbose logging so that
+you can track the first pass at backing up all files:
+
+```
+# backuptool backup --logging info
 ```
 
 ### Parameter Descriptions
@@ -54,7 +45,7 @@ the file should be the following:
 ### General Usage
 
 ```
-backuptool [--config /path/to/file.json] <backup|status>
+backuptool [--config /path/to/file.json] <backup|status|setup>
 ```
 
 ### Options
