@@ -11,6 +11,11 @@ whose modified date is greater than or equal too their last backup date. If a
 backup fails, the file's backup priority gets pushed down until the next time
 the file is updated.
 
+**Mac Users:** check out
+[BackupTool-Mac-Status](https://github.com/johnjones4/BackupTool-Mac-Status),
+a Mac app that displays the percent-complete of BackupTool in the Mac status
+bar.
+
 ## Installation
 
 Install the command line tool globally using *npm's* `-g` option:
@@ -45,7 +50,7 @@ you can track the first pass at backing up all files:
 ### General Usage
 
 ```
-backuptool [--config /path/to/file.json] <backup|status|setup>
+backuptool [--config /path/to/file.json] [--logging <error|info>] <backup|status|setup>
 ```
 
 ### Options
