@@ -56,6 +56,7 @@ backuptool [--config /path/to/file.json] [--logging <error|info>] <backup|status
 ### Options
 
 * **--config** By default, _backuptool_ looks for the file `.backuptool.json` in the running user's home directory, but this option can override that.
+* **--logging** Change the logging level of the tool. By default it is set to _error_.
 
 ### Commands
 
