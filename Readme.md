@@ -37,7 +37,7 @@ you can track the first pass at backing up all files:
 # backuptool backup --logging info
 ```
 
-### Parameter Descriptions
+## Config File Parameter Descriptions
 
 * **backupDirs** An array of directories to recursively backup.
 * **ignore** An array of glob-style ignore directives.
