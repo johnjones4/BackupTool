@@ -4,6 +4,12 @@
   "version": "1.2.6",
   "main": "index.js",
   "author": "John Jones <johnjones4@gmail.com>",
+  "contributors": [
+    {
+      "name": "Michael Barajas",
+      "url": "https://github.com/bearjaws"
+    }
+  ],
   "homepage": "https://github.com/johnjones4/BackupTool",
   "bugs": "https://github.com/johnjones4/BackupTool/issues",
   "repository": "https://github.com/johnjones4/BackupTool.git",
