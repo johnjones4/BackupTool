@@ -21,7 +21,7 @@ var config = {
     ignoredFilename,
     ignoredExtension
   ],
-  'backupManifestFile': './backupData/backupfiles.sqlite3'
+  'backupManifestFile': path.join(rootDir,'backupfiles.sqlite3')
 };
 
 var logger = {
@@ -177,6 +177,184 @@ describe('BackupAgent',function() {
     });
   });
 });
+
+describe('Database',function() {
+  var database;
+
+  beforeEach(function(done) {
+    fs.mkdir(rootDir,function(err) {
+      if (err) {
+        done(err);
+      } else {
+        database = new Database(config);
+        database.connect(done);
+      }
+    });
+  });
+
+  afterEach(function(done) {
+    database.disconnect();
+    removeFolder(rootDir, done);
+  });
+
+  describe('touchFile',function() {
+    it('Returns true for a new file',function(done) {
+      database.touchFile(randomstring.generate(),Date.now(),randomSize(),function(err,bool) {
+        if (err) {
+          done(err);
+        } else {
+          assert(bool);
+          done();
+        }
+      });
+    });
+
+    it('Returns true for an existing file with an unchanged date',function(done) {
+      var name = randomstring.generate();
+      var now = Date.now();
+      async.waterfall([
+        function(callback) {
+          database.touchFile(name,now,randomSize(),callback);
+        },
+        function(b,callback) {
+          database.touchFile(name,now,randomSize(),callback);
+        }
+      ],function(err,bool) {
+        if (err) {
+          done(err);
+        } else {
+          assert(!bool);
+          done();
+        }
+      });
+    });
+
+    it('Returns true for an existing file with a changed date',function(done) {
+      var name = randomstring.generate();
+      var now = Date.now();
+      async.waterfall([
+        function(callback) {
+          database.touchFile(name,now,randomSize(),callback);
+        },
+        function(b,callback) {
+          database.touchFile(name,now + 1,randomSize(),callback);
+        }
+      ],function(err,bool) {
+        if (err) {
+          done(err);
+        } else {
+          assert(bool);
+          done();
+        }
+      });
+    });
+  });
+
+  describe('getNextFileForBackup',function() {
+    it('Returns the smaller sized files first',function(done) {
+      var names = [
+        randomstring.generate(),
+        randomstring.generate(),
+        randomstring.generate()
+      ];
+      var map = [2,0,1];
+      async.waterfall([
+        function(callback) {
+          async.waterfall(
+            map.map(function(s,i) {
+              return function(callback1) {
+                database.touchFile(names[i],Date.now(),s+1,function(err) {
+                  callback1(err);
+                });
+              };
+            }),
+            callback
+          );
+        },
+        function(callback) {
+          async.series(
+            map.map(function(i) {
+              return function(callback1) {
+                database.getNextFileForBackup(callback1);
+              };
+            }),
+            function(err,results) {
+              if (err) {
+                callback(err);
+              } else {
+                assert.strictEqual(results.length,map.length);
+                for(var i=0; i<results.length; i++) {
+                  assert.equal(names[i],results[map[i]]);
+                }
+                callback();
+              }
+            }
+          )
+        }
+      ],done);
+    });
+  });
+
+  describe('resetBackupDate',function() {
+    it('Bumps reset row to the end of the queue',function(done) {
+      async.waterfall([
+        function(callback) {
+          async.parallel(
+            [0,1,2].map(function(s) {
+              return function(callback1) {
+                database.touchFile(randomstring.generate(),Date.now(),randomSize(),function(err) {
+                  callback1(err);
+                });
+              };
+            }),
+            function(err) {
+              callback(err);
+            }
+          );
+        },
+        function(callback) {
+          database.getNextFileForBackup(callback);
+        },
+        function(path,callback) {
+          database.resetBackupDate(path,function(err) {
+            callback(err,path);
+          });
+        },
+        function(path,callback) {
+          async.series(
+            [0,1].map(function(s) {
+              return function(callback1) {
+                database.getNextFileForBackup(function(err,path1) {
+                  assert.notEqual(path,path1);
+                  callback1(err);
+                });
+              };
+            }),
+            function(err) {
+              callback(err,path);
+            }
+          );
+        },
+        function(path,callback) {
+          database.getNextFileForBackup(function(err,path1) {
+            callback(err,path,path1);
+          });
+        }
+      ],function(err,path,path1) {
+        if (err) {
+          done(err);
+        } else {
+          assert.equal(path,path1);
+          done();
+        }
+      });
+    });
+  });
+});
+
+function randomSize() {
+  return Math.random() * 1000;
+}
 
 function generateFiles(topTotal,done) {
   var files = [];
