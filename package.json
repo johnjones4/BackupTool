@@ -29,6 +29,9 @@
   "bin": {
     "backuptool": "index.js"
   },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test --reporter spec"
+  },
   "devDependencies": {
     "mocha": "^2.3.4",
     "randomstring": "^1.1.3"
