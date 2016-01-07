@@ -4,6 +4,8 @@
 
 [![NPM](https://nodei.co/npm-dl/backuptool.png)](https://nodei.co/npm/backuptool/)
 
+[![Build Status](https://travis-ci.org/johnjones4/BackupTool.svg?branch=master)](https://travis-ci.org/johnjones4/BackupTool)
+
 ## Description
 
 _Backup Tool_ is a command line utility for backing up filesystem data to Amazon
