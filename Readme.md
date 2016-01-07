@@ -1,5 +1,11 @@
 # Backup Tool
 
+[![NPM](https://nodei.co/npm/backuptool.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/backuptool/)
+
+[![NPM](https://nodei.co/npm-dl/backuptool.png)](https://nodei.co/npm/backuptool/)
+
+[![Build Status](https://travis-ci.org/johnjones4/BackupTool.svg?branch=master)](https://travis-ci.org/johnjones4/BackupTool)
+
 ## Description
 
 _Backup Tool_ is a command line utility for backing up filesystem data to Amazon
@@ -37,7 +43,7 @@ you can track the first pass at backing up all files:
 # backuptool backup --logging info
 ```
 
-### Parameter Descriptions
+## Config File Parameter Descriptions
 
 * **backupDirs** An array of directories to recursively backup.
 * **ignore** An array of glob-style ignore directives.

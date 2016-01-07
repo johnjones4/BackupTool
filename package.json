@@ -1,9 +1,15 @@
 {
   "name": "backuptool",
   "description": "Backup Tool is a command line utility for backing up filesystem data to Amazon Web Services.",
-  "version": "1.2.5",
+  "version": "1.2.8",
   "main": "index.js",
   "author": "John Jones <johnjones4@gmail.com>",
+  "contributors": [
+    {
+      "name": "Michael Barajas",
+      "url": "https://github.com/bearjaws"
+    }
+  ],
   "homepage": "https://github.com/johnjones4/BackupTool",
   "bugs": "https://github.com/johnjones4/BackupTool/issues",
   "repository": "https://github.com/johnjones4/BackupTool.git",
@@ -22,5 +28,12 @@
   "preferGlobal": "true",
   "bin": {
     "backuptool": "index.js"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test --reporter spec"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "randomstring": "^1.1.3"
   }
 }
