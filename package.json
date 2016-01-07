@@ -28,5 +28,9 @@
   "preferGlobal": "true",
   "bin": {
     "backuptool": "index.js"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "randomstring": "^1.1.3"
   }
 }

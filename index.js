@@ -64,18 +64,22 @@ function backup() {
   var fileQueue = new FileQueue(100);
   var backuper;
   var agent = new BackupAgent(config,database,logger,fileQueue);
-  agent.execute(function() {
-    if (config.glacierVaultName) {
-      backuper = new GlacierBackuper(config,database,logger,fileQueue);
-    } else if (config.s3BucketName) {
-      backuper = new S3Backuper(config,database,logger,fileQueue);
+  agent.execute(function(err) {
+    if (err) {
+      logger.error(err);
     } else {
-      backuper = new DummyBackuper(config,database,logger,fileQueue);
+      if (config.glacierVaultName) {
+        backuper = new GlacierBackuper(config,database,logger,fileQueue);
+      } else if (config.s3BucketName) {
+        backuper = new S3Backuper(config,database,logger,fileQueue);
+      } else {
+        backuper = new DummyBackuper(config,database,logger,fileQueue);
+      }
+      backuper.execute(function() {
+        database.disconnect();
+        process.exit(0);
+      });
     }
-    backuper.execute(function() {
-      database.disconnect();
-      process.exit(0);
-    })
   });
 }
 
