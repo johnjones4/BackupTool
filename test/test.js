@@ -1,9 +1,10 @@
 var assert = require('assert');
 var fs = require('fs');
+
 var randomstring = require('randomstring');
-var BackupAgent = require('./lib/backupAgent');
+var BackupAgent = require('./../lib/backupAgent');
 var FileQueue = require('filequeue');
-var Database = require('./lib/database');
+var Database = require('./../lib/database');
 var path = require('path');
 var async = require('async');
 

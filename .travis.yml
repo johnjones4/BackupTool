@@ -3,4 +3,8 @@ node_js:
   - "4.1"
   - "4.0"
 sudo: false
+before_script:
+  - "sudo apt-get update && sudo apt-get install ruby-full && gem install fakes3"
+  - "fakes3 -r /tmp/fakes3 -p 4567 &"
 script: "npm test"
+sudo: requires
