@@ -17,6 +17,8 @@ whose modified date is greater than or equal too their last backup date. If a
 backup fails, the file's backup priority gets pushed down until the next time
 the file is updated.
 
+If you'd like to contribute - and please do - see our [Contributing](https://github.com/johnjones4/BackupTool/blob/master/CONTRIBUTING.md) guidelines for more information.
+
 **Mac Users:** check out
 [BackupTool-Mac-Status](https://github.com/johnjones4/BackupTool-Mac-Status),
 a Mac app that displays the percent-complete of BackupTool in the Mac status
