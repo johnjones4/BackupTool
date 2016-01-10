@@ -7,7 +7,7 @@ var GlacierBackuper = require('./lib/backupers/glacierBackuper.js');
 var S3Backuper = require('./lib/backupers/s3Backuper.js');
 var DummyBackuper = require('./lib/backupers/dummyBackuper.js');
 var FileQueue = require('filequeue');
-var Joi = require('Joi');
+var Joi = require('joi');
 var Schemas = require('./lib/schemas');
 var path = require('path');
 
