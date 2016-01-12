@@ -33,7 +33,6 @@ if (argv._.length == 1 && argv._[0] == 'backup') {
   });
 } else if (argv._.length == 1 && argv._[0] == 'status') {
   initConfigAndDB();
-  initConfigAndDB();
   database.connect(function(err) {
     if (err) {
       logger.error(err);
