@@ -18,29 +18,34 @@ var argv = require('minimist')(process.argv.slice(2),{
   }
 });
 
-var config = require(argv.config);
-
-// Validate configuration before attempting to read DB
-Joi.attempt(config, Schemas.config);
-
-var database = new Database(config);
+var config;
+var database;
 var logger = configLogger();
 
-database.connect(function(err) {
-  if (err) {
-    logger.error(err);
-  } else {
-    if (argv._.length == 1 && argv._[0] == 'backup') {
-      backup();
-    } else if (argv._.length == 1 && argv._[0] == 'status') {
-      status();
-    } else if (argv._.length == 1 && argv._[0] == 'setup') {
-      setup();
+if (argv._.length == 1 && argv._[0] == 'backup') {
+  initConfigAndDB();
+  database.connect(function(err) {
+    if (err) {
+      logger.error(err);
     } else {
-      usage();
+      backup();
     }
-  }
-});
+  });
+} else if (argv._.length == 1 && argv._[0] == 'status') {
+  initConfigAndDB();
+  initConfigAndDB();
+  database.connect(function(err) {
+    if (err) {
+      logger.error(err);
+    } else {
+      status();
+    }
+  });
+} else if (argv._.length == 1 && argv._[0] == 'setup') {
+  setup();
+} else {
+  usage();
+}
 
 function configLogger() {
   var logger = {
@@ -58,6 +63,13 @@ function configLogger() {
   }
 
   return logger;
+}
+
+function initConfigAndDB() {
+  config = require(argv.config);
+  // Validate configuration before attempting to read DB
+  Joi.attempt(config, Schemas.config);
+  database = new Database(config);
 }
 
 function backup() {
