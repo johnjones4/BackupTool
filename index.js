@@ -42,6 +42,15 @@ if (argv._.length == 1 && argv._[0] == 'backup') {
   });
 } else if (argv._.length == 1 && argv._[0] == 'setup') {
   setup();
+} else if (argv._.length == 1 && argv._[0] == 'clean') {
+  initConfigAndDB();
+  database.connect(function(err) {
+    if (err) {
+      logger.error(err);
+    } else {
+      clean();
+    }
+  });
 } else {
   usage();
 }
@@ -88,7 +97,14 @@ function backup() {
       }
       backuper.execute(function() {
         database.disconnect();
-        process.exit(0);
+        agent.clean(function(err) {
+          if (err) {
+            logger.error(err);
+          } else {
+            logger.info('Database cleaned');
+          }
+          process.exit(err ? -1 : 0);
+        })
       });
     }
   });
@@ -116,6 +132,19 @@ function status() {
 function setup() {
   var setup = new Setup();
   setup.start();
+}
+
+function clean() {
+  var fileQueue = new FileQueue(100);
+  var agent = new BackupAgent(config,database,logger,fileQueue);
+  agent.clean(function(err) {
+    if (err) {
+      logger.error(err);
+    } else {
+      logger.log('Database cleaned');
+    }
+    process.exit(err ? -1 : 0);
+  })
 }
 
 function usage() {
